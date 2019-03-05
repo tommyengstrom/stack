@@ -22,8 +22,8 @@ buildOptsParser cmd =
     switch
         (long "dry-run" <>
          help "Don't build anything, just prepare to") <*>
-    ((\x y z ->
-           concat [x, y, z]) <$>
+    ((\v x y z ->
+           concat [v, x, y, z]) <$>
      flag
          []
          ["-Wall", "-Werror"]
@@ -34,6 +34,11 @@ buildOptsParser cmd =
          ["-O0"]
          (long "fast" <>
           help "Turn off optimizations (-O0)") <*>
+     flag
+         []
+         ["-Wwarn"]
+         (long "sloppy" <>
+          help "Turn off -Werror") <*>
      many
          (textOption
               (long "ghc-options" <>
